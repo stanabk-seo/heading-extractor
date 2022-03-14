@@ -9,26 +9,20 @@ href4 = f'<a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTRHGu1jTiikb
 st.markdown(href4, unsafe_allow_html=True)
 
 file = st.file_uploader('',type='csv')
-url_df = pd.read_csv(file)
-url_list = url_df['url'].values.tolist()
+try:
+    url_df = pd.read_csv(file)
+    url_list = url_df['url'].values.tolist()
 
-# url_df = pd.read_csv(r'C:\Users\ABShukla\Documents\url_status_checker.csv')
+    adv.crawl(url_list, output_file='vedantu_data1.jl', follow_links=False)
+    crawl_df = pd.read_json('vedantu_data1.jl', lines=True)
+    heading_df = crawl_df[['url','h2','h3']]
+    print(heading_df)
+    st.write(heading_df)
+    st.success("Done!") 
 
-# url_list = url_df['url'].values.tolist()
+    csv = heading_df.to_csv(index=False)
 
-# url_list = ['https://www.vedantu.com/biography/mahatma-gandhi-biography','https://www.vedantu.com/biography/albert-einstein-biography']
+    st.download_button('Download CSV', csv, 'heading_data.csv', 'text/csv')
 
-# print(url_list)
-
-adv.crawl(url_list, output_file='vedantu_data1.jl', follow_links=False)
-crawl_df = pd.read_json('vedantu_data1.jl', lines=True)
-heading_df = crawl_df[['url','h2','h3']]
-print(heading_df)
-st.write(heading_df)
-st.success("Done!") 
-
-csv = heading_df.to_csv(index=False)
-
-st.download_button('Download CSV', csv, 'heading_data.csv', 'text/csv')
-
-
+except:
+    print('Error')
