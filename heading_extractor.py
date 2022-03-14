@@ -24,5 +24,14 @@ try:
 
     st.download_button('Download CSV', csv, 'heading_data.csv', 'text/csv')
 
+
 except:
     print('Error')
+
+
+st.write("@author: abhishek.shukla")
+st.write("Facing issues?")
+href2 = f'<a href="https://www.linkedin.com/in/abhishekshukla01/">DM me on Linkedin</a>'
+href3 = f'<a href="https://twitter.com/StanAbK">DM me on Twitter</a>'
+st.markdown(href2, unsafe_allow_html=True)
+st.markdown(href3, unsafe_allow_html=True)
